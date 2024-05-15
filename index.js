@@ -44,6 +44,9 @@ let topMovies = [
     },
 ];
 
+// Express static function
+app.use(express.static('public'));
+
 // GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to my top movies!');
