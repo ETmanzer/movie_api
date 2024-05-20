@@ -67,6 +67,7 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+// Return data about a single movie by title
 app.get('/movies/:title', (req, res) => {
     const title = req.params.title;
     const movie = topMovies.find(movie => movie.title === title);
@@ -77,6 +78,7 @@ app.get('/movies/:title', (req, res) => {
     }
 });
 
+// Allow new users to register
 app.post('/users', (req, res) => {
     const newUser = req.body;
     users.push(newUser);
