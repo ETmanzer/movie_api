@@ -46,6 +46,9 @@ let topMovies = [
     },
 ];
 
+let users = []; // This will store registered users
+
+
 // Express static function
 app.use(express.static('public'));
 
