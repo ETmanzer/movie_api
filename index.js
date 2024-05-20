@@ -85,6 +85,33 @@ app.post('/users', (req, res) => {
     res.status(201).send('User registered successfully');
 });
 
+// Allow users to update their user info (username)
+app.put('/users/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const updatedUserInfo = req.body;
+    res.send('User info updated successfully');
+});
+
+// Allow users to add a movie to their list of favorites
+app.post('/users/:userId/favorites/:movieId', (req, res) => {
+    const userId = req.params.userId;
+    const movieId = req.params.movieId;
+    res.send('Movie added to favorites successfully');
+});
+
+// Allow users to remove a movie from their list of favorites
+app.delete('/users/:userId/favorites/:movieId', (req, res) => {
+    const userId = req.params.userId;
+    const movieId = req.params.movieId;
+    res.send('Movie removed from favorites successfully');
+});
+
+// Allow existing users to deregister
+app.delete('/users/:userId', (req, res) => {
+    const userId = req.params.userId;
+    res.send('User deregistered successfully');
+});
+
 // error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
