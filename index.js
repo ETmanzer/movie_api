@@ -67,6 +67,16 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+app.get('/movies/:title', (req, res) => {
+    const title = req.params.title;
+    const movie = topMovies.find(movie => movie.title === title);
+    if (movie) {
+        res.json(movie);
+    } else {
+        res.status(404).send('Movie not found');
+    }
+});
+
 // error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
