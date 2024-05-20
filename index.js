@@ -6,43 +6,53 @@ const app = express();
 let topMovies = [
     {
         title: 'Terminator 2: Judegement Day',
-        director: 'James Cameron'
+        director: 'James Cameron',
+        genre: 'Sci-Fi'
     },
     {
         title: 'Star Wars: Episode V - The Empire Strikes Back',
-        director: 'Irvin Kershner'
+        director: 'Irvin Kershner',
+        genre: 'Sci-Fi'
     },
     {
         title: 'Dances with Wolves',
-        director: 'Kevin Costner'
+        director: 'Kevin Costner',
+        genre: 'Adventure'
     },
     {
         title: 'The Last Samuria',
-        director: 'Edward Zwick'
+        director: 'Edward Zwick',
+        genre: 'Action'
     },
     {
         title: 'Dune',
-        director: 'Denis Villeneuve'
+        director: 'Denis Villeneuve',
+        genre: 'Adventure'
     },
     {
         title: 'Dune: Part Two',
-        director: 'Denis Villeneuve'
+        director: 'Denis Villeneuve',
+        genre: 'Adventure'
     },
     {
         title: 'Ladyhawke',
-        director: 'Richard Donner'
+        director: 'Richard Donner',
+        genre: 'Fantasy'
     },
     {
         title: 'Star Wars: Episode VI - Return of the Jedi',
-        director: 'Richard Marquand'
+        director: 'Richard Marquand',
+        genre: 'Sci-Fi'
     },
     {
         title: 'John Wick',
-        director: 'Chad Stahelski'
+        director: 'Chad Stahelski',
+        genre: 'Action'
     },
     {
         title: 'John Wich: Chapter 2',
-        director: 'Chad Stahelski'
+        director: 'Chad Stahelski',
+        genre: 'Action'
     },
 ];
 
