@@ -3,59 +3,6 @@ morgan = require('morgan');
 
 const app = express();
 
-let topMovies = [
-    {
-        title: 'Terminator 2: Judegement Day',
-        director: 'James Cameron',
-        genre: 'Sci-Fi'
-    },
-    {
-        title: 'Star Wars: Episode V - The Empire Strikes Back',
-        director: 'Irvin Kershner',
-        genre: 'Sci-Fi'
-    },
-    {
-        title: 'Dances with Wolves',
-        director: 'Kevin Costner',
-        genre: 'Adventure'
-    },
-    {
-        title: 'The Last Samuria',
-        director: 'Edward Zwick',
-        genre: 'Action'
-    },
-    {
-        title: 'Dune',
-        director: 'Denis Villeneuve',
-        genre: 'Adventure'
-    },
-    {
-        title: 'Dune: Part Two',
-        director: 'Denis Villeneuve',
-        genre: 'Adventure'
-    },
-    {
-        title: 'Ladyhawke',
-        director: 'Richard Donner',
-        genre: 'Fantasy'
-    },
-    {
-        title: 'Star Wars: Episode VI - Return of the Jedi',
-        director: 'Richard Marquand',
-        genre: 'Sci-Fi'
-    },
-    {
-        title: 'John Wick',
-        director: 'Chad Stahelski',
-        genre: 'Action'
-    },
-    {
-        title: 'John Wich: Chapter 2',
-        director: 'Chad Stahelski',
-        genre: 'Action'
-    },
-];
-
 let directors = [
     {
         name: 'James Cameron',
@@ -105,6 +52,59 @@ let directors = [
         birthYear: 1968,
         deathYear: null
     }
+];
+
+let topMovies = [
+    {
+        title: 'Terminator 2: Judegement Day',
+        director: directors.find(director => director.name === 'James Cameron'),
+        genre: 'Sci-Fi'
+    },
+    {
+        title: 'Star Wars: Episode V - The Empire Strikes Back',
+        director: directors.find(director => director.name === 'Irvin Kershner'),
+        genre: 'Sci-Fi'
+    },
+    {
+        title: 'Dances with Wolves',
+        director: directors.find(director => director.name === 'Kevin Costner'),
+        genre: 'Adventure'
+    },
+    {
+        title: 'The Last Samuria',
+        director: directors.find(director => director.name === 'Edward Zwick'),
+        genre: 'Action'
+    },
+    {
+        title: 'Dune',
+        director: directors.find(director => director.name === 'Denis Villeneuve'),
+        genre: 'Adventure'
+    },
+    {
+        title: 'Dune: Part Two',
+        director: directors.find(director => director.name === 'Denis Villeneuve'),
+        genre: 'Adventure'
+    },
+    {
+        title: 'Ladyhawke',
+        director: directors.find(director => director.name === 'Richard Donner'),
+        genre: 'Fantasy'
+    },
+    {
+        title: 'Star Wars: Episode VI - Return of the Jedi',
+        director: directors.find(director => director.name === 'Richard Marquand'),
+        genre: 'Sci-Fi'
+    },
+    {
+        title: 'John Wick',
+        director: directors.find(director => director.name === 'Chad Stahelski'),
+        genre: 'Action'
+    },
+    {
+        title: 'John Wich: Chapter 2',
+        director: directors.find(director => director.name === 'Chad Stahelski'),
+        genre: 'Action'
+    },
 ];
 
 let users = []; // This will store registered users
