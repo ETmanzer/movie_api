@@ -77,6 +77,12 @@ app.get('/movies/:title', (req, res) => {
     }
 });
 
+app.post('/users', (req, res) => {
+    const newUser = req.body;
+    users.push(newUser);
+    res.status(201).send('User registered successfully');
+});
+
 // error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
