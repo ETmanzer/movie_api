@@ -49,10 +49,9 @@ let topMovies = [
 let users = []; // This will store registered users
 
 
-// Express static function
-app.use(express.static('public'));
-
 // Middleware
+app.use(express.json()); // Parse JSON bodies
+app.use(express.static('public'));
 app.use(morgan('common'));
 
 // GET requests
