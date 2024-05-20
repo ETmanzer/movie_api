@@ -56,6 +56,57 @@ let topMovies = [
     },
 ];
 
+let directors = [
+    {
+        name: 'James Cameron',
+        bio: 'James Francis Cameron is a Canadian filmmaker, philanthropist, and deep-sea explorer. He first found success with the science fiction action film The Terminator.',
+        birthYear: 1954,
+        deathYear: null // If the director is still alive, you can use null or undefined
+    },
+    {
+        name: 'Irvin Kershner',
+        bio: 'Irvin Kershner was an American film director and occasional actor, best known for directing The Empire Strikes Back, the James Bond film Never Say Never Again, and RoboCop 2.',
+        birthYear: 1923,
+        deathYear: 2010
+    },
+    {
+        name: 'Kevin Costner',
+        bio: 'Kevin Michael Costner is an American actor, film director, and producer. He has received two Academy Awards, two Golden Globe Awards, a Primetime Emmy Award, and two Screen Actors Guild Awards.',
+        birthYear: 1955,
+        deathYear: null
+    },
+    {
+        name: 'Edward Zwick',
+        bio: 'Edward M. Zwick is an American filmmaker and producer of film and television. He has worked primarily in the comedy-drama and epic historical film genres, including About Last Night, Glory, Legends of the Fall, and Blood Diamond.',
+        birthYear: 1952,
+        deathYear: null
+    },
+    {
+        name: 'Denis Villeneuve',
+        bio: 'Denis Villeneuve is a Canadian film director, producer, and screenwriter. He is a four-time recipient of the Canadian Screen Award (formerly Genie Award) for Best Direction, for Maelström in 2001, Polytechnique in 2010, Incendies in 2011, and Enemy in 2013. ',
+        birthYear: 1967,
+        deathYear: null
+    },
+    {
+        name: 'Richard Donner',
+        bio: 'Richard Donner is an American director and producer of film and television. He is best known for the superhero film Superman (1978) and its sequels Superman II (1980) and Superman III (1983), and for directing the adventure films The Goonies (1985) and Ladyhawke (1985), and the horror film The Omen (1976).',
+        birthYear: 1930,
+        deathYear: 2021
+    },
+    {
+        name: 'Richard Marquand',
+        bio: 'Richard Marquand was a Welsh film director best known for directing 1983\'s Return of the Jedi, one of the original Star Wars trilogy.',
+        birthYear: 1937,
+        deathYear: 1987
+    },
+    {
+        name: 'Chad Stahelski',
+        bio: 'Chad Stahelski is an American stuntman and film director. He is best known for his work on the John Wick franchise, which he co-directed with David Leitch. He has also worked as a stunt coordinator and second unit director on several films.',
+        birthYear: 1968,
+        deathYear: null
+    }
+];
+
 let users = []; // This will store registered users
 
 
