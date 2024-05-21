@@ -162,6 +162,16 @@ app.get('/genres/:name', (req, res) => {
     }
 });
 
+app.get('/directors/:name', (req, res) => {
+    const name = req.params.name;
+    const director = directors.find(director => director.name === name);
+    if (director) {
+        res.json(director);
+    } else {
+        res.status(404).send('Director not found');
+    }
+});
+
 // Return data about a single movie by title
 app.get('/movies/:title', (req, res) => {
     const title = req.params.title;
