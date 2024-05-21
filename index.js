@@ -3,6 +3,20 @@ morgan = require('morgan');
 
 const app = express();
 
+let genres = [
+    { name: 'Action', description: 'Movies characterized by intense sequences of action and excitement.' },
+    { name: 'Adventure', description: 'Movies that take viewers on exciting journeys and quests.' },
+    { name: 'Comedy', description: 'Movies intended to make the audience laugh or find humor in situations.' },
+    { name: 'Drama', description: 'Movies that explore serious themes and emotions, often focusing on character development.' },
+    { name: 'Fantasy', description: 'Movies set in imaginary worlds with magical or supernatural elements.' },
+    { name: 'Horror', description: 'Movies designed to scare or shock the audience with frightening or unsettling scenes.' },
+    { name: 'Mystery', description: 'Movies that involve solving a mysterious event or crime, often with unexpected twists.' },
+    { name: 'Romance', description: 'Movies centered around romantic relationships and love stories.' },
+    { name: 'Sci-Fi', description: 'Movies that explore futuristic or speculative concepts, often set in space or the future.' },
+    { name: 'Thriller', description: 'Movies characterized by suspenseful and thrilling plots, keeping viewers on the edge of their seats.' },
+    // Add more genres as needed
+];
+
 let directors = [
     {
         name: 'James Cameron',
