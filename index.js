@@ -72,61 +72,61 @@ let topMovies = [
     {
         title: 'Terminator 2: Judegement Day',
         director: directors.find(director => director.name === 'James Cameron'),
-        genre: 'Sci-Fi',
+        genre: genres.find(genre => genre.name === 'Action'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Star Wars: Episode V - The Empire Strikes Back',
         director: directors.find(director => director.name === 'Irvin Kershner'),
-        genre: 'Sci-Fi',
+        genre: genres.find(genre => genre.name === 'Sci-Fi'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dances with Wolves',
         director: directors.find(director => director.name === 'Kevin Costner'),
-        genre: 'Adventure',
+        genre: genres.find(genre => genre.name === 'Adventure'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'The Last Samuria',
         director: directors.find(director => director.name === 'Edward Zwick'),
-        genre: 'Action',
+        genre: genres.find(genre => genre.name === 'Action'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dune',
         director: directors.find(director => director.name === 'Denis Villeneuve'),
-        genre: 'Adventure',
+        genre: genres.find(genre => genre.name === 'Adventure'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dune: Part Two',
         director: directors.find(director => director.name === 'Denis Villeneuve'),
-        genre: 'Adventure',
+        genre: genres.find(genre => genre.name === 'Adventure'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Ladyhawke',
         director: directors.find(director => director.name === 'Richard Donner'),
-        genre: 'Fantasy',
+        genre: genres.find(genre => genre.name === 'Fantasy'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Star Wars: Episode VI - Return of the Jedi',
         director: directors.find(director => director.name === 'Richard Marquand'),
-        genre: 'Sci-Fi',
+        genre: genres.find(genre => genre.name === 'Sci-Fi'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'John Wick',
         director: directors.find(director => director.name === 'Chad Stahelski'),
-        genre: 'Action',
+        genre: genres.find(genre => genre.name === 'Action'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'John Wich: Chapter 2',
         director: directors.find(director => director.name === 'Chad Stahelski'),
-        genre: 'Action',
+        genre: genres.find(genre => genre.name === 'Action'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
 ];
