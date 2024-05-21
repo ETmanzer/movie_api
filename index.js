@@ -138,6 +138,16 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+app.get('/genres/:name', (req, res) => {
+    const genreName = req.params.name;
+    const genre = genres.find(genre => genre.name === genreName);
+    if (genre) {
+        res.json(genre);
+    } else {
+        res.status(404).send('Genre not found');
+    }
+});
+
 // Return data about a single movie by title
 app.get('/movies/:title', (req, res) => {
     const title = req.params.title;
