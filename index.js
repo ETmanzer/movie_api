@@ -181,17 +181,33 @@ async function seedDatabase() {
     const directorsMap = await directorsCollection.find().toArray();
     const genresMap = await genresCollection.find().toArray();
   
-    const moviesWithIds = topMovies.map((movie) => ({
-      ...movie,
-      director: directorsMap.find(director => director.name === movie.director)._id,
-      genre: genresMap.find(genre => genre.name === movie.genre)._id
-    }));
-  
-    await moviesCollection.insertMany(moviesWithIds);
-  
-    console.log('Database seeded!');
-}
-  
+    const moviesWithIds = topMovies.map((movie) => {
+        const director = directorsMap.find(director => director.name === movie.director);
+        const genre = genresMap.find(genre => genre.name === movie.genre);
+      
+        if (!director) {
+          console.error(`Director not found: ${movie.director}`);
+        }
+        if (!genre) {
+          console.error(`Genre not found: ${movie.genre}`);
+        }
+      
+        return {
+          title: movie.title,
+          director: director ? director._id : null,
+          genre: genre ? genre._id : null,
+          description: movie.description,
+          imageUrl: movie.imageUrl
+          // Add other properties if needed
+        };
+      });
+      
+      // Insert the movies with genre and director IDs
+      await moviesCollection.insertMany(moviesWithIds);
+      
+      console.log('Database seeded successfully.');
+    }
+      
 // Seed the database
 connect().then(seedDatabase);
 
