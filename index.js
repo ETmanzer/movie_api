@@ -124,7 +124,7 @@ let topMovies = [
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
-        title: 'John Wich: Chapter 2',
+        title: 'John Wick: Chapter 2',
         director: directors.find(director => director.name === 'Chad Stahelski'),
         genre: genres.find(genre => genre.name === 'Action'),
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
