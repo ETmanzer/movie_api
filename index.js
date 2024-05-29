@@ -165,8 +165,34 @@ let topMovies = [
 
 let users = []; // This will store registered users
 
-
-
+async function seedDatabase() {
+    const genresCollection = db.collection('genres');
+    const directorsCollection = db.collection('directors');
+    const moviesCollection = db.collection('movies');
+  
+    await genresCollection.deleteMany({});
+    await directorsCollection.deleteMany({});
+    await moviesCollection.deleteMany({});
+  
+    await genresCollection.insertMany(genres);
+    await directorsCollection.insertMany(directors);
+  
+    const directorsMap = await directorsCollection.find().toArray();
+    const genresMap = await genresCollection.find().toArray();
+  
+    const moviesWithIds = topMovies.map((movie) => ({
+      ...movie,
+      director: directorsMap.find(director => director.name === movie.director)._id,
+      genre: genresMap.find(genre => genre.name === movie.genre)._id
+    }));
+  
+    await moviesCollection.insertMany(moviesWithIds);
+  
+    console.log('Database seeded!');
+}
+  
+// Seed the database
+connect().then(seedDatabase);
 
 // GET requests
 app.get('/', (req, res) => {
