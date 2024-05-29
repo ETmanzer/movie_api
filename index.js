@@ -1,7 +1,11 @@
 const express = require('express');
-morgan = require('morgan');
+const morgan = require('morgan');
+const { MongoClient } = require('mongodb');
 
 const app = express();
+const url = 'mongodb://localhost:27017';
+const dbName = 'mfDB';
+let db;
 
 let genres = [
     { name: 'Action', description: 'Movies characterized by intense sequences of action and excitement.' },
