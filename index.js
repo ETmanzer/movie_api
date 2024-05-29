@@ -21,6 +21,7 @@ async function connect() {
     await client.connect();
     console.log('Connected successfully to MongoDB');
     db = client.db(dbName);
+    await seedDatabase();
 }
   
 connect();
