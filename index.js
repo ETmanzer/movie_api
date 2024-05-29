@@ -21,6 +21,11 @@ let genres = [
     // Add more genres as needed
 ];
 
+// Middleware
+app.use(express.json()); 
+app.use(express.static('public'));
+app.use(morgan('common'));
+
 let directors = [
     {
         name: 'James Cameron',
@@ -148,10 +153,7 @@ let topMovies = [
 let users = []; // This will store registered users
 
 
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(express.static('public'));
-app.use(morgan('common'));
+
 
 // GET requests
 app.get('/', (req, res) => {
