@@ -26,6 +26,17 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
+// Connect to the database
+
+async function connect() {
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    console.log('Connected successfully to MongoDB');
+    db = client.db(dbName);
+}
+  
+connect();
+
 let directors = [
     {
         name: 'James Cameron',
