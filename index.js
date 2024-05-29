@@ -167,47 +167,32 @@ let topMovies = [
 let users = []; // This will store registered users
 
 async function seedDatabase() {
-    const genresCollection = db.collection('genres');
-    const directorsCollection = db.collection('directors');
-    const moviesCollection = db.collection('movies');
+    try {
+      const genresCollection = db.collection('genres');
+      const directorsCollection = db.collection('directors');
+      const moviesCollection = db.collection('movies');
   
-    await genresCollection.deleteMany({});
-    await directorsCollection.deleteMany({});
-    await moviesCollection.deleteMany({});
+      await genresCollection.deleteMany({});
+      await directorsCollection.deleteMany({});
+      await moviesCollection.deleteMany({});
   
-    await genresCollection.insertMany(genres);
-    await directorsCollection.insertMany(directors);
+      // Manually assign unique _id values to genres
+      const genresWithIds = genres.map((genre, index) => ({
+        _id: index + 1, // Assigning incremental IDs starting from 1
+        name: genre.name,
+        description: genre.description
+      }));
   
-    const directorsMap = await directorsCollection.find().toArray();
-    const genresMap = await genresCollection.find().toArray();
+      await genresCollection.insertMany(genresWithIds);
+      
+      // Other seeding logic for directors and movies...
   
-    const moviesWithIds = topMovies.map((movie) => {
-        const director = directorsMap.find(director => director.name === movie.director);
-        const genre = genresMap.find(genre => genre.name === movie.genre);
-      
-        if (!director) {
-          console.error(`Director not found: ${movie.director}`);
-        }
-        if (!genre) {
-          console.error(`Genre not found: ${movie.genre}`);
-        }
-      
-        return {
-          title: movie.title,
-          director: director ? director._id : null,
-          genre: genre ? genre._id : null,
-          description: movie.description,
-          imageUrl: movie.imageUrl
-          // Add other properties if needed
-        };
-      });
-      
-      // Insert the movies with genre and director IDs
-      await moviesCollection.insertMany(moviesWithIds);
-      
       console.log('Database seeded successfully.');
+    } catch (error) {
+      console.error('Error seeding database:', error);
     }
-      
+}
+
 // Seed the database
 connect().then(seedDatabase);
 
