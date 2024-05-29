@@ -73,60 +73,70 @@ let topMovies = [
         title: 'Terminator 2: Judegement Day',
         director: directors.find(director => director.name === 'James Cameron'),
         genre: genres.find(genre => genre.name === 'Action'),
+        description: "In this sci-fi classic, a cyborg, identical to the one who failed to kill Sarah Connor, must now protect her teenage son, John, from an even more advanced and powerful Terminator.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Star Wars: Episode V - The Empire Strikes Back',
         director: directors.find(director => director.name === 'Irvin Kershner'),
         genre: genres.find(genre => genre.name === 'Sci-Fi'),
+        description: "In the second installment of the original Star Wars trilogy, the Rebels scatter after the Empire attacks their base. Luke Skywalker begins his training with Jedi Master Yoda, while Han Solo and Princess Leia are pursued by Darth Vader.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dances with Wolves',
         director: directors.find(director => director.name === 'Kevin Costner'),
         genre: genres.find(genre => genre.name === 'Adventure'),
+        description: "A Civil War soldier develops a relationship with a band of Lakota Indians, learning their culture and way of life, ultimately becoming a member of their tribe as tensions rise between Native Americans and encroaching settlers.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'The Last Samuria',
         director: directors.find(director => director.name === 'Edward Zwick'),
         genre: genres.find(genre => genre.name === 'Action'),
+        description: "An American military advisor embraces the Samurai culture he was hired to destroy after he is captured in battle, finding a new sense of purpose and honor.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dune',
         director: directors.find(director => director.name === 'Denis Villeneuve'),
         genre: genres.find(genre => genre.name === 'Adventure'),
+        description: "In this adaptation of Frank Herbert's epic novel, Paul Atreides, a young nobleman, must navigate the dangerous politics and deadly environment of the desert planet Arrakis to ensure the future of his family and people.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Dune: Part Two',
         director: directors.find(director => director.name === 'Denis Villeneuve'),
         genre: genres.find(genre => genre.name === 'Adventure'),
+        description: "Continuing the saga, Paul Atreides unites with the Fremen to rise against the corrupt galactic empire and avenge his family, while fulfilling his destiny on Arrakis.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Ladyhawke',
         director: directors.find(director => director.name === 'Richard Donner'),
         genre: genres.find(genre => genre.name === 'Fantasy'),
+        description: "A young thief, an exiled knight, and a beautiful woman cursed to transform into a hawk during the day must work together to break the spell and defeat the evil bishop who cast it.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'Star Wars: Episode VI - Return of the Jedi',
         director: directors.find(director => director.name === 'Richard Marquand'),
         genre: genres.find(genre => genre.name === 'Sci-Fi'),
+        description: "In the final chapter of the original trilogy, the Rebel Alliance launches a full-scale attack on the Empire's new Death Star, while Luke Skywalker confronts Darth Vader and the Emperor to save the galaxy.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'John Wick',
         director: directors.find(director => director.name === 'Chad Stahelski'),
         genre: genres.find(genre => genre.name === 'Action'),
+        description: "After the death of his beloved wife, former hitman John Wick is drawn back into the criminal underworld he left behind to seek vengeance against those who wronged him.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
         title: 'John Wick: Chapter 2',
         director: directors.find(director => director.name === 'Chad Stahelski'),
         genre: genres.find(genre => genre.name === 'Action'),
+        description: "Legendary hitman John Wick is forced out of retirement once again by a former associate plotting to seize control of an international assassins' guild. Bound by a blood oath, Wick travels to Rome to take down some of the world's deadliest killers.",
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
 ];
