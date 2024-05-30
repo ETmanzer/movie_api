@@ -168,28 +168,38 @@ let users = []; // This will store registered users
 
 async function seedDatabase() {
     try {
-      const genresCollection = db.collection('genres');
-      const directorsCollection = db.collection('directors');
-      const moviesCollection = db.collection('movies');
-  
-      await genresCollection.deleteMany({});
-      await directorsCollection.deleteMany({});
-      await moviesCollection.deleteMany({});
-  
-      // Manually assign unique _id values to genres
-      const genresWithIds = genres.map((genre, index) => ({
-        _id: index + 1, // Assigning incremental IDs starting from 1
-        name: genre.name,
-        description: genre.description
-      }));
-  
-      await genresCollection.insertMany(genresWithIds);
-      
-      // Other seeding logic for directors and movies...
-  
-      console.log('Database seeded successfully.');
+        const genresCollection = db.collection('genres');
+        const directorsCollection = db.collection('directors');
+        const moviesCollection = db.collection('movies');
+
+        await genresCollection.deleteMany({});
+        await directorsCollection.deleteMany({});
+        await moviesCollection.deleteMany({});
+
+        // Manually assign unique _id values to genres
+        const genresWithIds = genres.map((genre, index) => ({
+            _id: index + 1, // Assigning incremental IDs starting from 1
+            name: genre.name,
+            description: genre.description
+        }));
+
+        await genresCollection.insertMany(genresWithIds);
+
+        // Insert directors
+        await directorsCollection.insertMany(directors);
+
+        // Insert movies
+        const moviesToInsert = topMovies.map(movie => ({
+            ...movie,
+            director: movie.director.name,  // Store director's name instead of the whole object
+            genre: movie.genre.name  // Store genre's name instead of the whole object
+        }));
+
+        await moviesCollection.insertMany(moviesToInsert);
+
+        console.log('Database seeded successfully.');
     } catch (error) {
-      console.error('Error seeding database:', error);
+        console.error('Error seeding database:', error);
     }
 }
 
