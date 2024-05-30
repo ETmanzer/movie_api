@@ -166,6 +166,14 @@ let topMovies = [
 
 let users = []; // This will store registered users
 
+const usersData = [
+    { name: 'Alice', birthday: new Date('1985-02-19'), favoriteMovies: [] },
+    { name: 'Bob', birthday: new Date('1990-07-15'), favoriteMovies: [] },
+    { name: 'Charlie', birthday: new Date('1982-11-30'), favoriteMovies: [] },
+    { name: 'David', birthday: new Date('1995-04-25'), favoriteMovies: [] },
+    { name: 'Eve', birthday: new Date('1988-09-03'), favoriteMovies: [] }
+];
+
 async function seedDatabase() {
     try {
         const genresCollection = db.collection('genres');
