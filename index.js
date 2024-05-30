@@ -178,7 +178,7 @@ async function seedDatabase() {
 
         // Manually assign unique _id values to genres
         const genresWithIds = genres.map((genre, index) => ({
-            _id: index + 1, // Assigning incremental IDs starting from 1
+            _id: index + 1,
             name: genre.name,
             description: genre.description
         }));
@@ -190,9 +190,11 @@ async function seedDatabase() {
 
         // Insert movies
         const moviesToInsert = topMovies.map(movie => ({
-            ...movie,
-            director: movie.director.name,  // Store director's name instead of the whole object
-            genre: movie.genre.name  // Store genre's name instead of the whole object
+            title: movie.title,
+            director: movie.director.name,  // Store director's name
+            genre: movie.genre.name,  // Store genre's name
+            description: movie.description,
+            imageUrl: movie.imageUrl
         }));
 
         await moviesCollection.insertMany(moviesToInsert);
