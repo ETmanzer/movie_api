@@ -93,7 +93,7 @@ let directors = [
 
 let topMovies = [
     {
-        title: 'Terminator 2: Judegement Day',
+        title: 'Terminator 2: Judgement Day',
         director: directors.find(director => director.name === 'James Cameron'),
         genre: genres.find(genre => genre.name === 'Action'),
         description: "In this sci-fi classic, a cyborg, identical to the one who failed to kill Sarah Connor, must now protect her teenage son, John, from an even more advanced and powerful Terminator.",
