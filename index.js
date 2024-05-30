@@ -176,17 +176,25 @@ async function seedDatabase() {
         await directorsCollection.deleteMany({});
         await moviesCollection.deleteMany({});
 
-        // Manually assign unique _id values to genres
+        // Insert genres with unique IDs
         const genresWithIds = genres.map((genre, index) => ({
-            _id: index + 1,
+            _id: index + 1, // Assigning incremental IDs starting from 1
             name: genre.name,
             description: genre.description
         }));
 
-        await genresCollection.insertMany(genresWithIds);
+        try {
+            await genresCollection.insertMany(genresWithIds);
+        } catch (error) {
+            console.error('Error inserting genres:', error);
+        }
 
         // Insert directors
-        await directorsCollection.insertMany(directors);
+        try {
+            await directorsCollection.insertMany(directors);
+        } catch (error) {
+            console.error('Error inserting directors:', error);
+        }
 
         // Insert movies
         const moviesToInsert = topMovies.map(movie => ({
@@ -197,7 +205,11 @@ async function seedDatabase() {
             imageUrl: movie.imageUrl
         }));
 
-        await moviesCollection.insertMany(moviesToInsert);
+        try {
+            await moviesCollection.insertMany(moviesToInsert);
+        } catch (error) {
+            console.error('Error inserting movies:', error);
+        }
 
         console.log('Database seeded successfully.');
     } catch (error) {
@@ -205,10 +217,9 @@ async function seedDatabase() {
     }
 }
 
-// Seed the database
-connect().then(seedDatabase);
+// The rest of your Express app setup...
+// GET requests and other routes...
 
-// GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to my top movies!');
 });
