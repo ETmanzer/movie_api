@@ -278,10 +278,21 @@ app.put('/users/:userId', (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:userId/favorites/:movieId', (req, res) => {
-    const userId = req.params.userId;
-    const movieId = req.params.movieId;
-    res.send('Movie added to favorites successfully');
+app.post('/users', async (req, res) => {
+    try {
+        const newUser = req.body;
+        // Ensure birthday is stored as a Date data type
+        newUser.birthday = new Date(newUser.birthday);
+        // Use references to store favorite movies
+        newUser.favoriteMovies = []; // Initialize favoriteMovies as an empty array
+
+        const usersCollection = db.collection('users');
+        const result = await usersCollection.insertOne(newUser);
+        res.status(201).json(result.ops[0]); // Return the added user
+    } catch (error) {
+        console.error('Error adding user:', error);
+        res.status(500).send('Error adding user');
+    }
 });
 
 // Allow users to remove a movie from their list of favorites
