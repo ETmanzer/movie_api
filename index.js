@@ -179,10 +179,12 @@ async function seedDatabase() {
         const genresCollection = db.collection('genres');
         const directorsCollection = db.collection('directors');
         const moviesCollection = db.collection('movies');
+        const usersCollection = db.collection('users');
 
         await genresCollection.deleteMany({});
         await directorsCollection.deleteMany({});
         await moviesCollection.deleteMany({});
+        await usersCollection.deleteMany({}); // Clear existing data
 
         // Insert genres with unique IDs
         const genresWithIds = genres.map((genre, index) => ({
@@ -217,6 +219,13 @@ async function seedDatabase() {
             await moviesCollection.insertMany(moviesToInsert);
         } catch (error) {
             console.error('Error inserting movies:', error);
+        }
+
+        try {
+            await usersCollection.insertMany(usersData);
+    console.log('Users data inserted successfully.');
+        } catch (error) {
+            console.error('Error inserting users data:', error);
         }
 
         console.log('Database seeded successfully.');
