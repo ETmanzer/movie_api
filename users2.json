@@ -1,0 +1,5 @@
+{"_id":{"$oid":"6658b5a99b2a4af91c131f44"},"name":"Alice","birthday":{"$date":"1985-02-19T00:00:00Z"},"favoriteMovies":[]}
+{"_id":{"$oid":"6658b5a99b2a4af91c131f45"},"name":"Bob","birthday":{"$date":"1990-07-15T00:00:00Z"},"favoriteMovies":[]}
+{"_id":{"$oid":"6658b5a99b2a4af91c131f46"},"name":"Charlie","birthday":{"$date":"1982-11-30T00:00:00Z"},"favoriteMovies":[]}
+{"_id":{"$oid":"6658b5a99b2a4af91c131f47"},"name":"David","birthday":{"$date":"1995-04-25T00:00:00Z"},"favoriteMovies":[]}
+{"_id":{"$oid":"6658b5a99b2a4af91c131f48"},"name":"Eve","birthday":{"$date":"1988-09-03T00:00:00Z"},"favoriteMovies":[]}
