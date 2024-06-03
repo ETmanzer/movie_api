@@ -13,6 +13,8 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'mfDB';
 let db;
 
+mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 // Middleware
 app.use(express.json()); 
 app.use(express.static('public'));
