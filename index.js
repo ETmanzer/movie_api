@@ -1,3 +1,9 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
 const express = require('express');
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
@@ -6,8 +12,6 @@ const app = express();
 const url = 'mongodb://localhost:27017';
 const dbName = 'mfDB';
 let db;
-
-
 
 // Middleware
 app.use(express.json()); 
