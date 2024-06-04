@@ -251,8 +251,13 @@ app.get('/documentation', (req, res) => {
     res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-app.get('/movies', (req, res) => {
-    res.json(topMovies);
+app.get('/movies', async (req, res) => {
+    try {
+        const movies = await Movies.find();
+        res.status(200).json(movies);
+    } catch (err) {
+        res.status(500).send('Error: ' + err);
+    }
 });
 
 app.get('/genres/:name', (req, res) => {
