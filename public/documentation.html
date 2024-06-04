@@ -62,11 +62,32 @@
               <td>Success message</td>
             </tr>
             <tr>
-              <td>Allow users to update their user info</td>
-              <td>PUT</td>
-              <td>/users/{userId}</td>
-              <td>Success message</td>
-            </tr>
+              <td>Allow new users to register</td>
+              <td>POST</td>
+              <td>/users</td>
+              <td>
+                  <pre>
+            {
+              "Username": "exampleUser",
+              "Password": "password123",
+              "Email": "user@example.com",
+              "Birthday": "1990-01-01"
+            }
+                  </pre>
+              </td>
+              <td>
+                  <pre>
+            {
+              "_id": "60b8c8b2f1d3c93710b3c8b0",
+              "Username": "exampleUser",
+              "Password": "password123",
+              "Email": "user@example.com",
+              "Birthday": "1990-01-01T00:00:00.000Z",
+              "FavoriteMovies": []
+            }
+                  </pre>
+              </td>
+          </tr>
             <tr>
               <td>Allow users to add a movie to their list of favorites</td>
               <td>POST</td>
