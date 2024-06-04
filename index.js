@@ -281,13 +281,16 @@ app.get('/directors/:name', (req, res) => {
 });
 
 // Return data about a single movie by title
-app.get('/movies/:title', (req, res) => {
-    const title = req.params.title;
-    const movie = topMovies.find(movie => movie.title === title);
-    if (movie) {
-        res.json(movie);
-    } else {
-        res.status(404).send('Movie not found');
+app.get('/movies/:title', async (req, res) => {
+    try {
+        const movie = await Movies.findOne({ Title: req.params.title });
+        if (movie) {
+            res.status(200).json(movie);
+        } else {
+            res.status(404).send('Movie not found');
+        }
+    } catch (err) {
+        res.status(500).send('Error: ' + err);
     }
 });
 
