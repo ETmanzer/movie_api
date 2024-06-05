@@ -15,9 +15,6 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
-// Mongoose models
-const { Movie, User } = require('./models'); // Ensure your models are correctly defined in the './models' file
-
 // Connect to MongoDB using Mongoose
 mongoose.connect(url, {
     useNewUrlParser: true,
