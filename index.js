@@ -28,7 +28,7 @@ mongoose.connect(url, {
 });
 
 // Connect using MongoClient for direct access if needed
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+MongoClient.connect(url, (err, client) => {
     if (err) throw err;
     db = client.db(dbName);
     console.log(`Connected to database: ${dbName}`);
