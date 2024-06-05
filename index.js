@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const Schema = mongoose.Schema;
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -13,7 +14,9 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'mfDB';
 let db;
 
-mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Database connected successfully'))
+    .catch(err => console.error('Database connection error:', err));
 
 // Middleware
 app.use(express.json()); 
@@ -31,6 +34,14 @@ async function connect() {
 }
   
 connect();
+
+let movieSchema = new Schema({
+    Title: { type: String, required: true },
+    Description: { type: String, required: true },
+});
+
+let Movie = mongoose.model('Movie', movieSchema);
+module.exports.Movie = Movie;
 
 let genres = [
     { name: 'Action', description: 'Movies characterized by intense sequences of action and excitement.' },
@@ -288,15 +299,17 @@ app.get('/directors/:name', async (req, res) => {
 
 // Return data about a single movie by title
 app.get('/movies/:title', async (req, res) => {
+    const title = req.params.title;
     try {
-        const movie = await Movies.findOne({ Title: req.params.title });
+        const movie = await Movies.findOne({ title: title });
         if (movie) {
-            res.status(200).json(movie);
+            res.json(movie);
         } else {
             res.status(404).send('Movie not found');
         }
-    } catch (err) {
-        res.status(500).send('Error: ' + err);
+    } catch (error) {
+        console.error('Error fetching movie:', error);
+        res.status(500).send('Internal server error');
     }
 });
 
