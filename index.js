@@ -33,6 +33,10 @@ MongoClient.connect(url, (err, client) => {
     console.log(`Connected to database: ${dbName}`);
 });
 
+console.log('Genres:', genres);
+console.log('Directors:', directors);
+console.log('Top Movies:', topMovies);
+
 async function seedDatabase() {
     try {
         // Clear existing data
@@ -49,9 +53,11 @@ async function seedDatabase() {
         // Map directors to insert into movies
         const directorsMap = new Map();
         directors.forEach(director => directorsMap.set(director.name, director));
+            console.log('Current Director:', director);
 
         // Map genres to insert into movies
         const genresMap = new Map();
+            console.log('Current Genre:', genre);
         genresWithIds.forEach(genre => genresMap.set(genre.name, genre));
 
         // Insert movies
@@ -64,6 +70,10 @@ async function seedDatabase() {
             Featured: false // You might need to adjust this value
         }));
 
+        console.log('Genres Map:', genresMap);
+        console.log('Directors Map:', directorsMap);
+        console.log('Movies to Insert:', moviesToInsert);
+
         console.log('Movies to insert:', topMovies);
         await Movie.insertMany(topMovies); // Error occurs here
         await User.insertMany(usersData);
@@ -73,6 +83,8 @@ async function seedDatabase() {
         console.error('Error seeding database:', error);
     }
 }
+
+console.log('Inserted Movies:', moviesToInsert);
 
 // connect();
 
@@ -365,6 +377,7 @@ app.delete('/users/:userId', async (req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
+    console.error('Error seeding database:', error);
     res.status(500).send('Something broke!');
 });
 
