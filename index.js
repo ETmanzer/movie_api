@@ -56,9 +56,12 @@ async function seedDatabase() {
 
         // Insert movies
         const moviesToInsert = topMovies.map(movie => ({
-            ...movie,
-            director: directorsMap.get(movie.director.name)._id,
-            genre: genresMap.get(movie.genre.name)._id
+            Title: movie.title,
+            Description: movie.description,
+            Genre: movie.genre,
+            Director: movie.director,
+            ImagePath: movie.imageUrl,
+            Featured: false // You might need to adjust this value
         }));
         
         await Movie.insertMany(topMovies); // Error occurs here
