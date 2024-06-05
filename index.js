@@ -242,6 +242,8 @@ async function seedDatabase() {
     }
 }
 
+seedDatabase();
+
 console.log('Inserted Movies:', moviesToInsert);
 
 // Routes
