@@ -63,10 +63,11 @@ async function seedDatabase() {
             ImagePath: movie.imageUrl,
             Featured: false // You might need to adjust this value
         }));
-        
+
+        console.log('Movies to insert:', topMovies);
         await Movie.insertMany(topMovies); // Error occurs here
         await User.insertMany(usersData);
-
+        
         console.log('Database seeded successfully.');
     } catch (error) {
         console.error('Error seeding database:', error);
