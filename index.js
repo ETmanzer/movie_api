@@ -1,3 +1,5 @@
+const { Movie, User, Genre } = require('./models'); // Ensure Genre model is imported
+
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
@@ -41,13 +43,25 @@ async function seedDatabase() {
         await User.deleteMany({});
 
         // Insert genres with unique IDs
-        const genresWithIds = genres.map((genre, index) => ({
-            _id: index + 1,
-            name: genre.name,
-            description: genre.description
-        }));
+        const genresWithIds = await Genre.insertMany(genres);
 
-        await Movie.insertMany(topMovies);
+        // Map directors to insert into movies
+        const directorsMap = new Map();
+        directors.forEach(director => directorsMap.set(director.name, director));
+
+        // Map genres to insert into movies
+        const genresMap = new Map();
+        genresWithIds.forEach(genre => genresMap.set(genre.name, genre));
+
+        // Insert movies
+        const moviesToInsert = topMovies.map(movie => ({
+            ...movie,
+            director: directorsMap.get(movie.director.name)._id,
+            genre: genresMap.get(movie.genre.name)._id
+        }));
+        await Movie.insertMany(moviesToInsert);
+
+        // Insert users
         await User.insertMany(usersData);
 
         console.log('Database seeded successfully.');
