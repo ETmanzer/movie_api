@@ -58,8 +58,8 @@ async function seedDatabase() {
         const moviesToInsert = topMovies.map(movie => ({
             Title: movie.title,
             Description: movie.description,
-            Genre: movie.genre,
-            Director: movie.director,
+            Genre: genresMap.get(movie.genre.name)._id, // Get the genre ID from the genresMap
+            Director: directorsMap.get(movie.director.name)._id, // Get the director ID from the directorsMap
             ImagePath: movie.imageUrl,
             Featured: false // You might need to adjust this value
         }));
