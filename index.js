@@ -76,13 +76,13 @@ async function seedDatabase() {
 
 // connect();
 
-let movieSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-});
+// let movieSchema = new mongoose.Schema({
+//     title: { type: String, required: true },
+//     description: { type: String, required: true },
+// });
 
-let Movie = mongoose.model('Movie', movieSchema);
-module.exports.Movie = Movie;
+// let Movie = mongoose.model('Movie', movieSchema);
+// module.exports.Movie = Movie;
 
 let genres = [
     { name: 'Action', description: 'Movies characterized by intense sequences of action and excitement.' },
