@@ -17,6 +17,8 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
+const { Movie, User } = require('./models'); 
+
 async function connect() {
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
@@ -188,10 +190,12 @@ async function seedDatabase() {
         const genresCollection = db.collection('genres');
         const directorsCollection = db.collection('directors');
         const moviesCollection = db.collection('movies');
+        const usersCollection = db.collection('users');
 
         await genresCollection.deleteMany({});
         await directorsCollection.deleteMany({});
-        await moviesCollection.deleteMany({}); // Clear existing data
+        await moviesCollection.deleteMany({});
+        await usersCollection.deleteMany({}); // Clear existing data
 
         // Insert genres with unique IDs
         const genresWithIds = genres.map((genre, index) => ({
@@ -214,10 +218,25 @@ async function seedDatabase() {
         }
 
         // Insert movies
+        const moviesToInsert = topMovies.map(movie => ({
+            title: movie.title,
+            director: movie.director.name,  // Store director's name
+            genre: movie.genre.name,  // Store genre's name
+            description: movie.description,
+            imageUrl: movie.imageUrl
+        }));
+
         try {
-            await moviesCollection.insertMany(topMovies);
+            await moviesCollection.insertMany(moviesToInsert);
         } catch (error) {
             console.error('Error inserting movies:', error);
+        }
+
+        try {
+            await usersCollection.insertMany(usersData);
+    console.log('Users data inserted successfully.');
+        } catch (error) {
+            console.error('Error inserting users data:', error);
         }
 
         console.log('Database seeded successfully.');
@@ -225,6 +244,10 @@ async function seedDatabase() {
         console.error('Error seeding database:', error);
     }
 }
+
+(async () => {
+    await seedDatabase();
+})();
 
 // The rest of your Express app setup...
 // GET requests and other routes...
@@ -248,9 +271,9 @@ app.get('/movies', async (req, res) => {
 
 app.get('/genres/:name', async (req, res) => {
     try {
-        const genre = await Movies.findOne({ 'Genre.Name': req.params.name }, 'Genre');
-        if (genre) {
-            res.status(200).json(genre.Genre);
+        const movie = await Movie.findOne({ 'Genre.Name': req.params.name }, 'Genre');
+        if (movie) {
+            res.status(200).json(movie.Genre);
         } else {
             res.status(404).send('Genre not found');
         }
@@ -261,14 +284,14 @@ app.get('/genres/:name', async (req, res) => {
 
 app.get('/directors/:name', async (req, res) => {
     try {
-        const director = await Movies.findOne({ 'Director.Name': req.params.name }, 'Director');
-        if (director) {
-            res.status(200).json(director.Director);
+        const movie = await Movie.findOne({ 'Director.Name': req.params.name }, 'Director');
+        if (movie) {
+            res.status(200).json(movie.Director);
         } else {
             res.status(404).send('Director not found');
         }
     } catch (err) {
-        res.status(500).send('Error: ' + err);
+        res.status 500).send('Error: ' + err);
     }
 });
 
@@ -276,7 +299,7 @@ app.get('/directors/:name', async (req, res) => {
 app.get('/movies/:title', async (req, res) => {
     const title = req.params.title;
     try {
-        const movie = await Movies.findOne({ title: title });
+        const movie = await Movie.findOne({ Title: title });
         if (movie) {
             res.json(movie);
         } else {
@@ -291,7 +314,7 @@ app.get('/movies/:title', async (req, res) => {
 // Allow new users to register
 app.post('/users', async (req, res) => {
     try {
-        const user = new Users({
+        const user = new User({
             Username: req.body.Username,
             Password: req.body.Password,
             Email: req.body.Email,
@@ -307,7 +330,7 @@ app.post('/users', async (req, res) => {
 // Allow users to update their user info (username)
 app.put('/users/:userId', async (req, res) => {
     try {
-        const updatedUser = await Users.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
             req.params.userId,
             { $set: req.body },
             { new: true }
@@ -339,7 +362,7 @@ app.post('/users', async (req, res) => {
 // Allow users to remove a movie from their list of favorites
 app.post('/users/:userId/favorites/:movieId', async (req, res) => {
     try {
-        const user = await Users.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
             req.params.userId,
             { $addToSet: { FavoriteMovies: req.params.movieId } },
             { new: true }
@@ -353,7 +376,7 @@ app.post('/users/:userId/favorites/:movieId', async (req, res) => {
 // Allow existing users to deregister
 app.delete('/users/:userId', async (req, res) => {
     try {
-        await Users.findByIdAndRemove(req.params.userId);
+        await User.findByIdAndRemove(req.params.userId);
         res.status(200).send('User deregistered successfully');
     } catch (err) {
         res.status(500).send('Error: ' + err);
@@ -362,7 +385,7 @@ app.delete('/users/:userId', async (req, res) => {
 
 app.delete('/users/:userId/favorites/:movieId', async (req, res) => {
     try {
-        const user = await Users.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
             req.params.userId,
             { $pull: { FavoriteMovies: req.params.movieId } },
             { new: true }
