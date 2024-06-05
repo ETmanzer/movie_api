@@ -56,7 +56,7 @@ async function seedDatabase() {
     }
 }
 
-connect();
+// connect();
 
 // let movieSchema = new mongoose.Schema({
 //     Title: { type: String, required: true },
