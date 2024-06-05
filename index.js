@@ -82,7 +82,7 @@ let movieSchema = new mongoose.Schema({
 });
 
 let Movie = mongoose.model('Movie', movieSchema);
-// module.exports.Movie = Movie;
+module.exports.Movie = Movie;
 
 let genres = [
     { name: 'Action', description: 'Movies characterized by intense sequences of action and excitement.' },
