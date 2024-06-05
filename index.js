@@ -34,6 +34,7 @@ MongoClient.connect(url, (err, client) => {
 });
 
 console.log('Genres:', genres);
+
 console.log('Directors:', directors);
 console.log('Top Movies:', topMovies);
 
