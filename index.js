@@ -224,11 +224,11 @@ let topMovies = [
 let users = []; // This will store registered users
 
 let usersData = [
-    { name: 'Alice', birthday: new Date('1985-02-19'), favoriteMovies: [] },
-    { name: 'Bob', birthday: new Date('1990-07-15'), favoriteMovies: [] },
-    { name: 'Charlie', birthday: new Date('1982-11-30'), favoriteMovies: [] },
-    { name: 'David', birthday: new Date('1995-04-25'), favoriteMovies: [] },
-    { name: 'Eve', birthday: new Date('1988-09-03'), favoriteMovies: [] }
+    { Username: 'alice', Password: 'password123', Email: 'alice@example.com', Birthday: new Date('1985-02-19'), FavoriteMovies: [] },
+    { Username: 'bob', Password: 'password456', Email: 'bob@example.com', Birthday: new Date('1990-07-15'), FavoriteMovies: [] },
+    { Username: 'Charlie', Password: 'password789', Email: 'charlie@example.com', birthday: new Date('1982-11-30'), favoriteMovies: [] },
+    { Username: 'David', Password: 'password246', Email: 'david@example.com', birthday: new Date('1995-04-25'), favoriteMovies: [] },
+    { Username: 'Eve', Password: 'password357', Email: 'eve@example.com', birthday: new Date('1988-09-03'), favoriteMovies: [] }
 ];
 
 // Routes
