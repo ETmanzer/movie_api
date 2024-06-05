@@ -2,30 +2,88 @@ const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
-const { Movie, User } = require('./models'); // Import models
 
 const app = express();
 const url = 'mongodb://localhost:27017';
 const dbName = 'mfDB';
 let db;
 
-mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Database connected successfully'))
-    .catch(err => console.error('Database connection error:', err));
-
 // Middleware
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
+// Mongoose models
+const { Movie, User } = require('./models');
+
 async function connect() {
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(url);
     await client.connect();
     console.log('Connected successfully to MongoDB');
     db = client.db(dbName);
     await seedDatabase();
 }
-  
+
+async function seedDatabase() {
+    try {
+        const genresCollection = db.collection('genres');
+        const directorsCollection = db.collection('directors');
+        const moviesCollection = db.collection('movies');
+        const usersCollection = db.collection('users');
+
+        await genresCollection.deleteMany({});
+        await directorsCollection.deleteMany({});
+        await moviesCollection.deleteMany({});
+        await usersCollection.deleteMany({}); // Clear existing data
+
+        // Insert genres with unique IDs
+        const genresWithIds = genres.map((genre, index) => ({
+            _id: index + 1, // Assigning incremental IDs starting from 1
+            name: genre.name,
+            description: genre.description
+        }));
+
+        try {
+            await genresCollection.insertMany(genresWithIds);
+        } catch (error) {
+            console.error('Error inserting genres:', error);
+        }
+
+        // Insert directors
+        try {
+            await directorsCollection.insertMany(directors);
+        } catch (error) {
+            console.error('Error inserting directors:', error);
+        }
+
+        // Insert movies
+        const moviesToInsert = topMovies.map(movie => ({
+            title: movie.title,
+            director: movie.director.name,  // Store director's name
+            genre: movie.genre.name,  // Store genre's name
+            description: movie.description,
+            imageUrl: movie.imageUrl
+        }));
+
+        try {
+            await moviesCollection.insertMany(moviesToInsert);
+        } catch (error) {
+            console.error('Error inserting movies:', error);
+        }
+
+        try {
+            await usersCollection.insertMany(usersData);
+            console.log('Users data inserted successfully.');
+        } catch (error) {
+            console.error('Error inserting users data:', error);
+        }
+
+        console.log('Database seeded successfully.');
+    } catch (error) {
+        console.error('Error seeding database:', error);
+    }
+}
+
 connect();
 
 // let movieSchema = new mongoose.Schema({
@@ -184,45 +242,45 @@ const usersData = [
     { name: 'Eve', birthday: new Date('1988-09-03'), favoriteMovies: [] }
 ];
 
-async function seedDatabase() {
-    try {
-        const genresCollection = db.collection('genres');
-        const directorsCollection = db.collection('directors');
-        const moviesCollection = db.collection('movies');
-        const usersCollection = db.collection('users');
+// async function seedDatabase() {
+//     try {
+//         const genresCollection = db.collection('genres');
+//         const directorsCollection = db.collection('directors');
+//         const moviesCollection = db.collection('movies');
+//         const usersCollection = db.collection('users');
 
-        await genresCollection.deleteMany({});
-        await directorsCollection.deleteMany({});
-        await moviesCollection.deleteMany({});
-        await usersCollection.deleteMany({});
+//         await genresCollection.deleteMany({});
+//         await directorsCollection.deleteMany({});
+//         await moviesCollection.deleteMany({});
+//         await usersCollection.deleteMany({});
 
-        const genresWithIds = genres.map((genre, index) => ({
-            _id: index + 1,
-            name: genre.name,
-            description: genre.description
-        }));
+//         const genresWithIds = genres.map((genre, index) => ({
+//             _id: index + 1,
+//             name: genre.name,
+//             description: genre.description
+//         }));
 
-        await genresCollection.insertMany(genresWithIds);
-        await directorsCollection.insertMany(directors);
-        const moviesToInsert = topMovies.map(movie => ({
-            title: movie.title,
-            director: movie.director.name,
-            genre: movie.genre.name,
-            description: movie.description,
-            imageUrl: movie.imageUrl
-        }));
-        await moviesCollection.insertMany(moviesToInsert);
-        await usersCollection.insertMany(usersData);
+//         await genresCollection.insertMany(genresWithIds);
+//         await directorsCollection.insertMany(directors);
+//         const moviesToInsert = topMovies.map(movie => ({
+//             title: movie.title,
+//             director: movie.director.name,
+//             genre: movie.genre.name,
+//             description: movie.description,
+//             imageUrl: movie.imageUrl
+//         }));
+//         await moviesCollection.insertMany(moviesToInsert);
+//         await usersCollection.insertMany(usersData);
         
-        console.log('Database seeded successfully.');
-    } catch (error) {
-        console.error('Error seeding database:', error);
-    }
-}
+//         console.log('Database seeded successfully.');
+//     } catch (error) {
+//         console.error('Error seeding database:', error);
+//     }
+// }
 
-(async () => {
-    await seedDatabase();
-})();
+// (async () => {
+//     await seedDatabase();
+// })();
 
 // The rest of your Express app setup...
 // GET requests and other routes...
@@ -270,6 +328,7 @@ app.get('/directors/:name', async (req, res) => {
     }
 });
 
+// Return data about a single movie by title
 app.get('/movies/:title', async (req, res) => {
     const title = req.params.title;
     try {
@@ -285,6 +344,7 @@ app.get('/movies/:title', async (req, res) => {
     }
 });
 
+// Allow new users to register
 app.post('/users', async (req, res) => {
     try {
         const user = new User({
@@ -300,6 +360,7 @@ app.post('/users', async (req, res) => {
     }
 });
 
+// Allow users to update their user info (username)
 app.put('/users/:userId', async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(
@@ -313,6 +374,25 @@ app.put('/users/:userId', async (req, res) => {
     }
 });
 
+// Allow users to add a movie to their list of favorites
+app.post('/users', async (req, res) => {
+    try {
+        const newUser = req.body;
+        // Ensure birthday is stored as a Date data type
+        newUser.birthday = new Date(newUser.birthday);
+        // Use references to store favorite movies
+        newUser.favoriteMovies = []; // Initialize favoriteMovies as an empty array
+
+        const usersCollection = db.collection('users');
+        const result = await usersCollection.insertOne(newUser);
+        res.status(201).json(result.ops[0]); // Return the added user
+    } catch (error) {
+        console.error('Error adding user:', error);
+        res.status(500).send('Error adding user');
+    }
+});
+
+// Allow users to remove a movie from their list of favorites
 app.post('/users/:userId/favorites/:movieId', async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(
@@ -326,6 +406,7 @@ app.post('/users/:userId/favorites/:movieId', async (req, res) => {
     }
 });
 
+// Allow existing users to deregister
 app.delete('/users/:userId', async (req, res) => {
     try {
         await User.findByIdAndRemove(req.params.userId);
