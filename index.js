@@ -40,7 +40,11 @@ async function seedDatabase() {
         await User.deleteMany({});
 
         // Insert genres with unique IDs
-        const genresWithIds = await Genre.insertMany(genres);
+        const genresWithIds = genres.map((genre, index) => ({
+            _id: index + 1,
+            name: genre.name,
+            description: genre.description
+        }));
 
         // Map directors to insert into movies
         const directorsMap = new Map();
@@ -56,9 +60,8 @@ async function seedDatabase() {
             director: directorsMap.get(movie.director.name)._id,
             genre: genresMap.get(movie.genre.name)._id
         }));
-        await Movie.insertMany(moviesToInsert);
-
-        // Insert users
+        
+        await Movie.insertMany(topMovies); // Error occurs here
         await User.insertMany(usersData);
 
         console.log('Database seeded successfully.');
