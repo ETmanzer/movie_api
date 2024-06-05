@@ -253,7 +253,7 @@ app.get('/movies', async (req, res) => {
 app.get('/genres/:name', async (req, res) => {
     const genreName = req.params.name;
     try {
-        const movie = await Movie.findOne({ 'genre.Name': genreName });
+        const movie = await Movie.findOne({ 'genre.Name': new RegExp('^' + genreName + '$', 'i') });
         if (movie) {
             res.json(movie.genre);
         } else {
