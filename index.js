@@ -77,8 +77,8 @@ async function seedDatabase() {
 // connect();
 
 let movieSchema = new mongoose.Schema({
-    Title: { type: String, required: true },
-    Description: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
 });
 
 let Movie = mongoose.model('Movie', movieSchema);

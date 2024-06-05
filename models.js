@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
-let movieSchema = mongoose.Schema({
-    Title: {type: String, required: true},
-    Description: {type: String, required: true},
-    Genre: {
+let movieSchema = mongoose.Schema({S
+    title: {type: String, required: true},
+    description: {type: String, required: true},
+    genre: {
       Name: String,
       Description: String
     },
-    Director: {
+    director: {
       Name: String,
       Bio: String
     },
