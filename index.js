@@ -232,6 +232,8 @@ async function seedDatabase() {
         console.log('Directors Map:', directorsMap);
         console.log('Movies to Insert:', moviesToInsert);
 
+        console.log('Inserted Movies:', moviesToInsert); // Move the logging here
+
         console.log('Movies to insert:', topMovies);
         await Movie.insertMany(topMovies); // Error occurs here
         await User.insertMany(usersData);
@@ -243,8 +245,6 @@ async function seedDatabase() {
 }
 
 seedDatabase();
-
-console.log('Inserted Movies:', moviesToInsert);
 
 // Routes
 app.get('/', (req, res) => {
