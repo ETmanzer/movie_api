@@ -217,9 +217,11 @@ async function seedDatabase() {
 
         // Map genres to insert into movies
         const genresMap = new Map();
+        genresWithIds.forEach(genre => {
+            genresMap.set(genre.name, genre);
             console.log('Current Genre:', genre);
-        genresWithIds.forEach(genre => genresMap.set(genre.name, genre));
-
+        });
+        
         // Insert movies
         const moviesToInsert = topMovies.map(movie => ({
             Title: movie.title,
