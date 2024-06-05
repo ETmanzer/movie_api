@@ -1,10 +1,4 @@
 const mongoose = require('mongoose');
-const Models = require('./models.js');
-const Schema = mongoose.Schema;
-
-const Movies = Models.Movie;
-const Users = Models.User;
-
 const express = require('express');
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
@@ -23,8 +17,6 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
 
-// Connect to the database
-
 async function connect() {
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
@@ -35,7 +27,7 @@ async function connect() {
   
 connect();
 
-let movieSchema = new Schema({
+let movieSchema = new mongoose.Schema({
     Title: { type: String, required: true },
     Description: { type: String, required: true },
 });
@@ -196,12 +188,10 @@ async function seedDatabase() {
         const genresCollection = db.collection('genres');
         const directorsCollection = db.collection('directors');
         const moviesCollection = db.collection('movies');
-        const usersCollection = db.collection('users');
 
         await genresCollection.deleteMany({});
         await directorsCollection.deleteMany({});
-        await moviesCollection.deleteMany({});
-        await usersCollection.deleteMany({}); // Clear existing data
+        await moviesCollection.deleteMany({}); // Clear existing data
 
         // Insert genres with unique IDs
         const genresWithIds = genres.map((genre, index) => ({
@@ -224,25 +214,10 @@ async function seedDatabase() {
         }
 
         // Insert movies
-        const moviesToInsert = topMovies.map(movie => ({
-            title: movie.title,
-            director: movie.director.name,  // Store director's name
-            genre: movie.genre.name,  // Store genre's name
-            description: movie.description,
-            imageUrl: movie.imageUrl
-        }));
-
         try {
-            await moviesCollection.insertMany(moviesToInsert);
+            await moviesCollection.insertMany(topMovies);
         } catch (error) {
             console.error('Error inserting movies:', error);
-        }
-
-        try {
-            await usersCollection.insertMany(usersData);
-    console.log('Users data inserted successfully.');
-        } catch (error) {
-            console.error('Error inserting users data:', error);
         }
 
         console.log('Database seeded successfully.');
