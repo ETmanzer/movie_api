@@ -223,7 +223,7 @@ let topMovies = [
 
 let users = []; // This will store registered users
 
-const usersData = [
+let usersData = [
     { name: 'Alice', birthday: new Date('1985-02-19'), favoriteMovies: [] },
     { name: 'Bob', birthday: new Date('1990-07-15'), favoriteMovies: [] },
     { name: 'Charlie', birthday: new Date('1982-11-30'), favoriteMovies: [] },
