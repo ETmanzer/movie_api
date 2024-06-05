@@ -210,8 +210,10 @@ async function seedDatabase() {
 
         // Map directors to insert into movies
         const directorsMap = new Map();
-        directors.forEach(director => directorsMap.set(director.name, director));
+        directors.forEach(director => {
+            directorsMap.set(director.name, director);
             console.log('Current Director:', director);
+        });
 
         // Map genres to insert into movies
         const genresMap = new Map();
