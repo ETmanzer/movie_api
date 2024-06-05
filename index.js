@@ -64,7 +64,7 @@ async function seedDatabase() {
             Featured: false // You might need to adjust this value
         }));
         
-        await Movie.insertMany(moviesToInsert); // Error occurs here
+        await Movie.insertMany(topMovies); // Error occurs here
         await User.insertMany(usersData);
 
         console.log('Database seeded successfully.');
