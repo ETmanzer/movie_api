@@ -251,15 +251,17 @@ app.get('/movies', async (req, res) => {
 });
 
 app.get('/genres/:name', async (req, res) => {
+    const genreName = req.params.name;
     try {
-        const movie = await Movie.findOne({ 'Genre.Name': req.params.name }, 'Genre');
+        const movie = await Movie.findOne({ 'genre.Name': genreName });
         if (movie) {
-            res.status(200).json(movie.Genre);
+            res.json(movie.genre);
         } else {
             res.status(404).send('Genre not found');
         }
-    } catch (err) {
-        res.status(500).send('Error: ' + err);
+    } catch (error) {
+        console.error('Error fetching genre:', error);
+        res.status(500).send('Internal server error');
     }
 });
 
@@ -280,7 +282,7 @@ app.get('/directors/:name', async (req, res) => {
 app.get('/movies/:title', async (req, res) => {
     const title = req.params.title;
     try {
-        const movie = await Movie.findOne({ Title: title });
+        const movie = await Movie.findOne({ title: title }); // Change Title to title
         if (movie) {
             res.json(movie);
         } else {
