@@ -172,7 +172,7 @@ let topMovies = [
         imageUrl: 'https://via.placeholder.com/300x150' // Placeholder image URL
     },
     {
-        title: 'The Last Samuria',
+        title: 'The Last Samurai',
         director: directors.find(director => director.name === 'Edward Zwick'),
         genre: genres.find(genre => genre.name === 'Action'),
         description: "An American military advisor embraces the Samurai culture he was hired to destroy after he is captured in battle, finding a new sense of purpose and honor.",
