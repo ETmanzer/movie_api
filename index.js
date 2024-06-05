@@ -33,60 +33,6 @@ MongoClient.connect(url, (err, client) => {
     console.log(`Connected to database: ${dbName}`);
 });
 
-console.log('Genres:', genres);
-
-console.log('Directors:', directors);
-console.log('Top Movies:', topMovies);
-
-async function seedDatabase() {
-    try {
-        // Clear existing data
-        await Movie.deleteMany({});
-        await User.deleteMany({});
-
-        // Insert genres with unique IDs
-        const genresWithIds = genres.map((genre, index) => ({
-            _id: index + 1,
-            name: genre.name,
-            description: genre.description
-        }));
-
-        // Map directors to insert into movies
-        const directorsMap = new Map();
-        directors.forEach(director => directorsMap.set(director.name, director));
-            console.log('Current Director:', director);
-
-        // Map genres to insert into movies
-        const genresMap = new Map();
-            console.log('Current Genre:', genre);
-        genresWithIds.forEach(genre => genresMap.set(genre.name, genre));
-
-        // Insert movies
-        const moviesToInsert = topMovies.map(movie => ({
-            Title: movie.title,
-            Description: movie.description,
-            Genre: genresMap.get(movie.genre.name)._id, // Get the genre ID from the genresMap
-            Director: directorsMap.get(movie.director.name)._id, // Get the director ID from the directorsMap
-            ImagePath: movie.imageUrl,
-            Featured: false // You might need to adjust this value
-        }));
-
-        console.log('Genres Map:', genresMap);
-        console.log('Directors Map:', directorsMap);
-        console.log('Movies to Insert:', moviesToInsert);
-
-        console.log('Movies to insert:', topMovies);
-        await Movie.insertMany(topMovies); // Error occurs here
-        await User.insertMany(usersData);
-        
-        console.log('Database seeded successfully.');
-    } catch (error) {
-        console.error('Error seeding database:', error);
-    }
-}
-
-console.log('Inserted Movies:', moviesToInsert);
-
 // connect();
 
 // let movieSchema = new mongoose.Schema({
@@ -244,6 +190,59 @@ let usersData = [
     { Username: 'David', Password: 'password246', Email: 'david@example.com', birthday: new Date('1995-04-25'), favoriteMovies: [] },
     { Username: 'Eve', Password: 'password357', Email: 'eve@example.com', birthday: new Date('1988-09-03'), favoriteMovies: [] }
 ];
+
+console.log('Genres:', genres);
+console.log('Directors:', directors);
+console.log('Top Movies:', topMovies);
+
+async function seedDatabase() {
+    try {
+        // Clear existing data
+        await Movie.deleteMany({});
+        await User.deleteMany({});
+
+        // Insert genres with unique IDs
+        const genresWithIds = genres.map((genre, index) => ({
+            _id: index + 1,
+            name: genre.name,
+            description: genre.description
+        }));
+
+        // Map directors to insert into movies
+        const directorsMap = new Map();
+        directors.forEach(director => directorsMap.set(director.name, director));
+            console.log('Current Director:', director);
+
+        // Map genres to insert into movies
+        const genresMap = new Map();
+            console.log('Current Genre:', genre);
+        genresWithIds.forEach(genre => genresMap.set(genre.name, genre));
+
+        // Insert movies
+        const moviesToInsert = topMovies.map(movie => ({
+            Title: movie.title,
+            Description: movie.description,
+            Genre: genresMap.get(movie.genre.name)._id, // Get the genre ID from the genresMap
+            Director: directorsMap.get(movie.director.name)._id, // Get the director ID from the directorsMap
+            ImagePath: movie.imageUrl,
+            Featured: false // You might need to adjust this value
+        }));
+
+        console.log('Genres Map:', genresMap);
+        console.log('Directors Map:', directorsMap);
+        console.log('Movies to Insert:', moviesToInsert);
+
+        console.log('Movies to insert:', topMovies);
+        await Movie.insertMany(topMovies); // Error occurs here
+        await User.insertMany(usersData);
+        
+        console.log('Database seeded successfully.');
+    } catch (error) {
+        console.error('Error seeding database:', error);
+    }
+}
+
+console.log('Inserted Movies:', moviesToInsert);
 
 // Routes
 app.get('/', (req, res) => {
